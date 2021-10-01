@@ -11,7 +11,6 @@ public class Traveler : MonoBehaviour
     public float travelTime;
     
     private WorldGrid _worldGrid;
-    private int[,] grid;
     private Queue<Vector2> _path;
     
     private float _timeElapsed;
@@ -38,7 +37,7 @@ public class Traveler : MonoBehaviour
     private void ReadPath()
     {
         _path = new Queue<Vector2>();
-        string[] lines = System.IO.File.ReadAllLines("Assets/Scripts/Pathfinding/Maps/1/searchTree1.txt");
+        string[] lines = System.IO.File.ReadAllLines("Assets/Scripts/Pathfinding/Maps/1/searchTree.txt");
         foreach (string line in lines)
         {
             string[] coordinates = line.Split(' ');

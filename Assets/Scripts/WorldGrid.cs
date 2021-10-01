@@ -10,7 +10,7 @@ public class WorldGrid : MonoBehaviour
     [SerializeField] private float cellSize;
     public int Width;
     public int Height;
-    
+    private char[,] gridMap;
     
     private static WorldGrid _instance;
     public static WorldGrid Instance { get { return _instance; } }
@@ -21,8 +21,8 @@ public class WorldGrid : MonoBehaviour
     {
         if (_instance == null)
         {
-            _instance = this;    
-    
+            _instance = this;
+            PrepareWorld();
         }
         else if (_instance != this)
         {
@@ -37,7 +37,31 @@ public class WorldGrid : MonoBehaviour
             }
         }
     }
-    
+
+    private void PrepareWorld()
+    {
+
+        string[] lines = System.IO.File.ReadAllLines("Assets/Scripts/Pathfinding/Maps/1/map.txt");
+        string[] gridDimensions = lines[0].Split(' ');
+        Width = int.Parse(gridDimensions[0]);
+        Height = int.Parse(gridDimensions[1]);
+        Debug.Log(Width + " " + Height);
+        gridMap = new char[Width, Height];
+        
+        for(int i = 1; i < lines.Length; i++)
+        {
+            string line = "";
+            for (int j = 0; j < lines[i].Length; j++)
+            {
+                gridMap[i - 1, j] = lines[i][j];
+
+                line += gridMap[i - 1, j];
+            }
+            
+            Debug.Log(line);
+        }
+    }
+
     private void ShowGridCell(int i, int j)
     {
         Debug.DrawLine(GetWorldPos(i, j), GetWorldPos(i, j + 1), Color.green, 100f, true);
