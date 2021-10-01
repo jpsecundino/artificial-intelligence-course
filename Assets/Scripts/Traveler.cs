@@ -1,8 +1,5 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
-using System.Security.AccessControl;
-using System.Threading;
 using UnityEngine;
 
 public class Traveler : MonoBehaviour
@@ -37,7 +34,7 @@ public class Traveler : MonoBehaviour
     private void ReadPath()
     {
         _path = new Queue<Vector2>();
-        string[] lines = System.IO.File.ReadAllLines("Assets/Scripts/Pathfinding/Maps/1/searchTree.txt");
+        string[] lines = System.IO.File.ReadAllLines($"Assets/Scripts/Pathfinding/Maps/{WorldManager.Instance._map}/searchTree{WorldManager.Instance._method}.txt");
         foreach (string line in lines)
         {
             string[] coordinates = line.Split(' ');
