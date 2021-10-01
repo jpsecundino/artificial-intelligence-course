@@ -5,12 +5,13 @@ using System.Security.AccessControl;
 using System.Threading;
 using UnityEngine;
 
-public class PathFinder : MonoBehaviour
+public class Traveler : MonoBehaviour
 {
     public GameObject target;
     public float travelTime;
     
     private WorldGrid _worldGrid;
+    private int[,] grid;
     private Queue<Vector2> _path;
     
     private float _timeElapsed;
@@ -21,11 +22,12 @@ public class PathFinder : MonoBehaviour
 
     private void Start()
     {
+        //find another place to put this
         GetComponent<DiscretePositioning>().enabled = false;
         
         _worldGrid = WorldGrid.Instance;
-        
-        FindTarget();
+
+        ReadPath(); 
         
         _posLerpDuration = travelTime / _path.Count;
         _startPos = _path.Dequeue();
@@ -33,20 +35,22 @@ public class PathFinder : MonoBehaviour
 
     }
 
-    private void FindTarget()
+    private void ReadPath()
     {
-        bool[,] visited = NewVisitedArray(_worldGrid.Width, _worldGrid.Height);
-
         _path = new Queue<Vector2>();
-
-        Vector2 curPos = _worldGrid.WorldPos2GridIdx(transform.position);
-
-        dfs(curPos, ref visited);
+        string[] lines = System.IO.File.ReadAllLines("Assets/Scripts/Pathfinding/Maps/1/searchTree1.txt");
+        foreach (string line in lines)
+        {
+            string[] coordinates = line.Split(' ');
+            int x = int.Parse(coordinates[0]);
+            int y = int.Parse(coordinates[1]);
+            _path.Enqueue(new Vector2(x,y));
+        }
+        
     }
 
     void Update()
     {
-        
         if (_timeElapsed < _posLerpDuration)
         {
             Debug.Log(_worldGrid.GetWorldPos(_endPos,cellCentered: true));    
@@ -65,51 +69,5 @@ public class PathFinder : MonoBehaviour
         }
     }
 
-    private bool[,] NewVisitedArray(int n, int m)
-    {
-
-        bool[,] visited = new bool[n, m];
-    
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < m; j++)
-            {
-                visited[i, j] = false;
-            }
-        }
-
-        return visited;
-    }
-    
-    bool dfs(Vector2 curPos, ref bool[,] visited)
-    {
-        int x = (int) curPos.x,
-            y = (int) curPos.y;
-
-        if (x < 0 || x >= _worldGrid.Width || y < 0 || y >= _worldGrid.Height) return false;
-
-        if (visited[x, y]) return false;
-        
-        if (curPos == _worldGrid.WorldPos2GridIdx(target.transform.position))
-        {
-            Debug.Log($"Wowo! We found the island at position {_worldGrid.GetWorldPos((int) curPos.x, (int) curPos.y, cellCentered: true)}");
-            return true;
-        }
-        
-        visited[x, y] = true;
-
-        _path.Enqueue(curPos);
-
-        int[,] moves = {{0, 1}, {1,0}, {-1, 0}, {0, -1}};
-        
-        for (int i = 0; i < 4; i++)
-        {
-            Vector2 move = new Vector2(moves[i,0], moves[i,1]);
-            if (dfs(curPos + move, ref visited)) 
-                return true;
-        }
-        
-        return false;
-    }
 }
 
