@@ -40,10 +40,10 @@ public class WorldGrid : MonoBehaviour
     
     private void ShowGridCell(int i, int j)
     {
-        Debug.DrawLine(GetWorldPos(i, j), GetWorldPos(i, j + 1), Color.green, 100f, false);
+        Debug.DrawLine(GetWorldPos(i, j), GetWorldPos(i, j + 1), Color.green, 100f, true);
         Debug.DrawLine(GetWorldPos(i, j), GetWorldPos(i + 1, j), Color.green, 100f, true);
-        Debug.DrawLine(GetWorldPos(i + 1, j), GetWorldPos(i + 1, j + 1), Color.green, 100f, false);
-        Debug.DrawLine(GetWorldPos(i, j + 1), GetWorldPos(i + 1, j + 1), Color.green, 100f, false);
+        Debug.DrawLine(GetWorldPos(i + 1, j), GetWorldPos(i + 1, j + 1), Color.green, 100f, true);
+        Debug.DrawLine(GetWorldPos(i, j + 1), GetWorldPos(i + 1, j + 1), Color.green, 100f, true);
     }
 
     public Vector3 GetWorldPos(Vector2 pos, bool cellCentered = false)

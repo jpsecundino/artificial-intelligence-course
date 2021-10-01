@@ -11,54 +11,57 @@ public class PathFinder : MonoBehaviour
     public float travelTime;
     
     private WorldGrid _worldGrid;
-    private Queue<Vector2> path;
+    private Queue<Vector2> _path;
     
-    private float timeElapsed;
-    private float lerpDuration;
+    private float _timeElapsed;
+    private float _posLerpDuration;
 
-    private Vector2 startPos;
-    private Vector2 endPos;
-    private float valueToLerp;
+    private Vector2 _startPos;
+    private Vector2 _endPos;
 
     private void Start()
     {
-        _worldGrid = WorldGrid.Instance;
-        
-        bool[,] visited = NewVisitedArray(_worldGrid.Width, _worldGrid.Height);
-        
-        path = new Queue<Vector2>();
-
-        Vector2 curPos = _worldGrid.WorldPos2GridIdx(transform.position); 
-        
-        dfs(curPos, ref visited);
-
-        Debug.Log(path.Count);
-
         GetComponent<DiscretePositioning>().enabled = false;
         
-        lerpDuration = travelTime / path.Count;
-        startPos = path.Dequeue();
-        endPos = path.Dequeue();
+        _worldGrid = WorldGrid.Instance;
+        
+        FindTarget();
+        
+        _posLerpDuration = travelTime / _path.Count;
+        _startPos = _path.Dequeue();
+        _endPos = _path.Dequeue();
 
+    }
+
+    private void FindTarget()
+    {
+        bool[,] visited = NewVisitedArray(_worldGrid.Width, _worldGrid.Height);
+
+        _path = new Queue<Vector2>();
+
+        Vector2 curPos = _worldGrid.WorldPos2GridIdx(transform.position);
+
+        dfs(curPos, ref visited);
     }
 
     void Update()
     {
         
-        if (timeElapsed < lerpDuration)
+        if (_timeElapsed < _posLerpDuration)
         {
-            Debug.Log(_worldGrid.GetWorldPos(endPos,cellCentered: true));    
-            Vector3 newPos = Vector3.Lerp(_worldGrid.GetWorldPos(startPos, cellCentered: true),
-                                            _worldGrid.GetWorldPos(endPos,cellCentered: true), timeElapsed / lerpDuration);
+            Debug.Log(_worldGrid.GetWorldPos(_endPos,cellCentered: true));    
+            Vector3 newPos = Vector3.Lerp(_worldGrid.GetWorldPos(_startPos, cellCentered: true),
+                                            _worldGrid.GetWorldPos(_endPos,cellCentered: true), _timeElapsed / _posLerpDuration);
             transform.position = newPos;
-            timeElapsed += Time.deltaTime;
+            _timeElapsed += Time.deltaTime/1.1f;
         }
-        else if(path.Count != 0)
+        else if(_path.Count != 0)
         {
-            transform.position = _worldGrid.GetWorldPos(endPos,cellCentered: true);
-            startPos = endPos;
-            endPos = path.Dequeue();
-            timeElapsed = 0f;
+            transform.position = _worldGrid.GetWorldPos(_endPos,cellCentered: true);
+            _startPos = _endPos;
+            _endPos = _path.Dequeue();
+            transform.LookAt(_worldGrid.GetWorldPos(_endPos,cellCentered: true));
+            _timeElapsed = 0f;
         }
     }
 
@@ -95,7 +98,7 @@ public class PathFinder : MonoBehaviour
         
         visited[x, y] = true;
 
-        path.Enqueue(curPos);
+        _path.Enqueue(curPos);
 
         int[,] moves = {{0, 1}, {1,0}, {-1, 0}, {0, -1}};
         
