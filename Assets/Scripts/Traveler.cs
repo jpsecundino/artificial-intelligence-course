@@ -52,7 +52,6 @@ public class Traveler : MonoBehaviour
     {
         if (_timeElapsed < _posLerpDuration)
         {
-            Debug.Log(_worldGrid.GetWorldPos(_endPos,cellCentered: true));    
             Vector3 newPos = Vector3.Lerp(_worldGrid.GetWorldPos(_startPos, cellCentered: true),
                                             _worldGrid.GetWorldPos(_endPos,cellCentered: true), _timeElapsed / _posLerpDuration);
             transform.position = newPos;

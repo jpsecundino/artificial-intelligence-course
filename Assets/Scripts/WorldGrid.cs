@@ -8,9 +8,9 @@ public class WorldGrid : MonoBehaviour
 {
     
     [SerializeField] private float cellSize;
-    public int Width;
-    public int Height;
-    private char[,] gridMap;
+    public int width;
+    public int height;
+    public char[,] gridMap;
     
     private static WorldGrid _instance;
     public static WorldGrid Instance { get { return _instance; } }
@@ -22,43 +22,22 @@ public class WorldGrid : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-            PrepareWorld();
         }
         else if (_instance != this)
         {
             Destroy(gameObject);
         }
         
-        for (int i = 0; i < this.Width; i++)
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i < this.width; i++)
         {
-            for (int j = 0; j < this.Height; j++)
+            for (int j = 0; j < this.height; j++)
             {
                 ShowGridCell(i, j);
             }
-        }
-    }
-
-    private void PrepareWorld()
-    {
-
-        string[] lines = System.IO.File.ReadAllLines("Assets/Scripts/Pathfinding/Maps/1/map.txt");
-        string[] gridDimensions = lines[0].Split(' ');
-        Width = int.Parse(gridDimensions[0]);
-        Height = int.Parse(gridDimensions[1]);
-        Debug.Log(Width + " " + Height);
-        gridMap = new char[Width, Height];
-        
-        for(int i = 1; i < lines.Length; i++)
-        {
-            string line = "";
-            for (int j = 0; j < lines[i].Length; j++)
-            {
-                gridMap[i - 1, j] = lines[i][j];
-
-                line += gridMap[i - 1, j];
-            }
-            
-            Debug.Log(line);
         }
     }
 
@@ -92,8 +71,8 @@ public class WorldGrid : MonoBehaviour
         int x = (int) (pos.x / cellSize),
             y = (int) (pos.z / cellSize);
 
-        x = (int) Mathf.Clamp(x, 0, Width - 1);
-        y = (int) Mathf.Clamp(y, 0, Height - 1);
+        x = (int) Mathf.Clamp(x, 0, width - 1);
+        y = (int) Mathf.Clamp(y, 0, height - 1);
         
         return new Vector2(x , y);
     }
@@ -103,8 +82,8 @@ public class WorldGrid : MonoBehaviour
         int x = (int) (pos.x / cellSize),
             y = (int) (pos.z / cellSize);
 
-        x = (int) Mathf.Clamp(x, 0, Width - 1);
-        y = (int) Mathf.Clamp(y, 0, Height - 1);
+        x = (int) Mathf.Clamp(x, 0, width - 1);
+        y = (int) Mathf.Clamp(y, 0, height - 1);
         
         return new Vector2(x * cellSize + cellSize / 2, y * cellSize + cellSize / 2);
     }
