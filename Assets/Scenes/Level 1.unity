@@ -172,7 +172,7 @@ MonoBehaviour:
   waveHeight: 1
   waveFrequency: 0.25
   waveLength: 1
-  waveOriginPosition: {x: 0, y: 0, z: 0}
+  waveOriginPosition: {x: 10, y: 10, z: 0}
 --- !u!64 &323967430
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -441,7 +441,7 @@ MonoBehaviour:
   waveHeight: 1
   waveFrequency: 0.25
   waveLength: 1
-  waveOriginPosition: {x: 0, y: 0, z: 0}
+  waveOriginPosition: {x: 10, y: 10, z: 0}
 --- !u!1 &1206555548
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,7 +494,7 @@ MonoBehaviour:
   boat: {fileID: 5412035142450037490, guid: 9f84523a358750d46b54dd8244470d4b, type: 3}
   target: {fileID: 1929303813361754878, guid: 150756809d7ae1f44b3003df0a08b4d9, type: 3}
   _method: 0
-  _map: 2
+  _map: 1
 --- !u!114 &1206555551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,7 +507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9ceb2ab8b2eeaa4481a96bbff1a3080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellSize: 30
+  cellSize: 2.5
   width: 21
   height: 31
 --- !u!1 &1283146274
@@ -586,8 +586,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1283146274}
-  m_LocalRotation: {x: 0.3114, y: -0.63496923, z: 0.31175548, w: 0.63454914}
-  m_LocalPosition: {x: 760.81213, y: 604.19403, z: 421.66174}
+  m_LocalRotation: {x: 0.3689553, y: -0.60327095, z: 0.36940083, w: 0.6028924}
+  m_LocalPosition: {x: 52.63659, y: 41.10895, z: 37.40842}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -642,7 +642,7 @@ MonoBehaviour:
   waveHeight: 1
   waveFrequency: 0.25
   waveLength: 1
-  waveOriginPosition: {x: 0, y: 0, z: 0}
+  waveOriginPosition: {x: 10, y: 10, z: 0}
 --- !u!64 &1770364193
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -755,7 +755,7 @@ MonoBehaviour:
   waveHeight: 1
   waveFrequency: 0.25
   waveLength: 1
-  waveOriginPosition: {x: 0, y: 0, z: 0}
+  waveOriginPosition: {x: 10, y: 10, z: 0}
 --- !u!64 &1800893578
 MeshCollider:
   m_ObjectHideFlags: 0
