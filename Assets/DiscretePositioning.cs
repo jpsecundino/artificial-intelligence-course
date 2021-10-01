@@ -15,7 +15,7 @@ public class DiscretePositioning : MonoBehaviour
 
     void Update()
     {
-        Vector2 newPosIdx = _worldGrid.WorldPos2GridIdx(new Vector2(transform.position.x, transform.position.z));
+        Vector2 newPosIdx = _worldGrid.WorldPos2GridPos(transform.position);
         transform.position = new Vector3(newPosIdx.x, 0f, newPosIdx.y);
     }
 }
