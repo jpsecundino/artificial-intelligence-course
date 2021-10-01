@@ -493,6 +493,8 @@ MonoBehaviour:
   obstacle: {fileID: 2515847722117683968, guid: f31f32e5a9e5ec042b8c2bbba8c046b9, type: 3}
   boat: {fileID: 5412035142450037490, guid: 9f84523a358750d46b54dd8244470d4b, type: 3}
   target: {fileID: 1929303813361754878, guid: 150756809d7ae1f44b3003df0a08b4d9, type: 3}
+  _method: 0
+  _map: 2
 --- !u!114 &1206555551
 MonoBehaviour:
   m_ObjectHideFlags: 0
