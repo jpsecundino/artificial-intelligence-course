@@ -46,6 +46,11 @@ public class WorldGrid : MonoBehaviour
         Debug.DrawLine(GetWorldPos(i, j + 1), GetWorldPos(i + 1, j + 1), Color.green, 100f, false);
     }
 
+    public Vector3 GetWorldPos(Vector2 pos, bool cellCentered = false)
+    {
+        return GetWorldPos((int) pos.x, (int) pos.y, cellCentered);
+    }
+    
     public Vector3 GetWorldPos(int x, int y, bool cellCentered = false)
     {
         Vector3 pos = new Vector3(x, 0f, y) * cellSize;
@@ -71,8 +76,8 @@ public class WorldGrid : MonoBehaviour
     
     public Vector2 WorldPos2GridPos(Vector3 pos)
     {
-        int x = Mathf.RoundToInt(pos.x / cellSize),
-            y = Mathf.RoundToInt(pos.z / cellSize);
+        int x = (int) (pos.x / cellSize),
+            y = (int) (pos.z / cellSize);
 
         x = (int) Mathf.Clamp(x, 0, Width - 1);
         y = (int) Mathf.Clamp(y, 0, Height - 1);
