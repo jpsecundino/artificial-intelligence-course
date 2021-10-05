@@ -13,6 +13,7 @@ typedef struct node_{
   int y;
   float fValue;
   float gValue;
+  struct node_* prev;
 }node;
 
 struct CompareNode {
@@ -40,12 +41,11 @@ bool CheckValicMovement(int i, int j,const vector<vector<char>>& grid, vector<ve
     return true;
 }
 
-bool astar(const vector<vector<char>>& grid, 
+node astar(const vector<vector<char>>& grid, 
          const pair<int, int> target,
          vector<vector<bool>>& visited, 
          queue<pair<int,int>>& searchTree,
          priority_queue<node, vector<node>, CompareNode>& nextPos,
-         stack<pair<int,int>>& truePath,
          node curr) {
 
     visited[curr.x][curr.y] = true;
@@ -53,8 +53,7 @@ bool astar(const vector<vector<char>>& grid,
     searchTree.push(make_pair(curr.x, curr.y));
     
     if(curr.x == target.first && curr.y == target.second) {
-        truePath.push(make_pair(curr.x,curr.y));
-        return true;
+        return curr;
     }
     
     node aux;
@@ -64,18 +63,14 @@ bool astar(const vector<vector<char>>& grid,
             aux.y = curr.y+moves[m][1];
             aux.gValue = curr.gValue + 1;
             aux.fValue = aux.gValue + CalculateHValue(curr.x+moves[m][0], curr.y+moves[m][1], target);
+            aux.prev = &curr;
             nextPos.push(aux);
             visited[aux.x][aux.y] = true;
         }
     }
     aux = nextPos.top();
     nextPos.pop();
-    if(astar(grid, target, visited, searchTree, nextPos, truePath, aux)) {
-        truePath.push(make_pair(curr.x,curr.y));
-        return true;
-    }
-
-    return(false);
+    return(astar(grid, target, visited, searchTree, nextPos, aux));
 }
 
 
@@ -89,6 +84,7 @@ int main() {
     priority_queue<node, vector<node>, CompareNode> nextPos;
 
     node startPos;
+    startPos.prev = NULL;
     pair<int, int> targetPos;
 
     for (int i = 0; i < n; i++) {
@@ -109,19 +105,21 @@ int main() {
 
     queue<pair<int,int>> searchTree;
     stack<pair<int,int>> truePath;
-
-    if(astar(grid, targetPos, visited, searchTree, nextPos, truePath, startPos)) {
-        while (!searchTree.empty()) {
-            pair<int, int> pos = searchTree.front();
-            searchTree.pop();
-            cout << pos.first << " " << pos.second << endl;
-        }
-        cout << "tp" << endl;
-        while (!truePath.empty()) {
-            pair<int, int> pos = truePath.top();
-            truePath.pop();
-            cout << pos.first << " " << pos.second << endl;
-        }
+    node endNode = astar(grid, targetPos, visited, searchTree, nextPos, startPos);
+    while (!searchTree.empty()) {
+        pair<int, int> pos = searchTree.front();
+        searchTree.pop();
+        cout << pos.first << " " << pos.second << endl;
+    }
+    cout << "tp" << endl;
+    while(endNode.prev != NULL) {
+        truePath.push(make_pair(endNode.x,endNode.y));
+        endNode = *endNode.prev;
+    }
+    while (!truePath.empty()) {
+        pair<int, int> pos = truePath.top();
+        truePath.pop();
+        cout << pos.first << " " << pos.second << endl;
     }
 
     return 0;
