@@ -1,6 +1,7 @@
 #include<vector>
 #include<queue>
 #include<tuple>
+#include<math.h>
 #include<iostream>
 
 using namespace std;
@@ -9,20 +10,27 @@ using namespace std;
 typedef struct node_{
   int x;
   int y;
-  int fValue;
-  int gValue;
+  float fValue;
+  float gValue;
 }node;
 
 struct CompareNode {
     bool operator()(node const& n1, node const& n2) {
-        return n1.fValue < n2.fValue;
+        return (n1.fValue > n2.fValue);
     }
 };
 
+int absolute(int n) {
+    if(n < 0) 
+        return n*(-1);
+    else 
+        return n;
+}
+
 int moves[4][2] = {{0, 1}, {1,0}, {-1, 0}, {0, -1}};
 
-int CalculateHValue(int i, int j, pair<int, int> target) {
-    return ((i - target.first) + (j - target.second));
+float CalculateHValue(int i, int j, pair<int, int> target) {
+    return ((i - target.first)*(i - target.first) + (j - target.second)*(j - target.second));
 }
 
 bool CheckValicMovement(int i, int j,const vector<vector<char>>& grid, vector<vector<bool>>& visited) {
@@ -54,6 +62,7 @@ bool astar(const vector<vector<char>>& grid,
             aux.fValue = aux.gValue + CalculateHValue(curr.x+moves[m][0], curr.y+moves[m][1], target);
 
             nextPos.push(aux);
+            visited[aux.x][aux.y] = true;
         }
     }
     aux = nextPos.top();
@@ -65,9 +74,9 @@ bool astar(const vector<vector<char>>& grid,
 }
 
 
-int main(){
+int main() {
     int n, m;
-    cout << "a";
+
     cin >> n >> m;
 
     vector<vector<char>> grid(n, vector<char>(m));
@@ -77,29 +86,26 @@ int main(){
     node startPos;
     pair<int, int> targetPos;
 
-    for (int i = 0; i < n; i++)
-    {
-        for(int j = 0; j < m; j++){
+    for (int i = 0; i < n; i++) {
+        for(int j = 0; j < m; j++) {
             cin >> grid[i][j];
 
-            if(grid[i][j] == 's'){
+            if(grid[i][j] == 's') {
                 startPos.x = i;
                 startPos.y = j;
                 startPos.gValue = 0;
             } 
 
-            if(grid[i][j] == 't'){
+            if(grid[i][j] == 't') {
                 targetPos = make_pair(i, j);
             } 
         }
-
     }
 
     queue<pair<int,int>> searchTree;
 
-    if(astar(grid, targetPos, visited, searchTree, nextPos, startPos)){
-        while (!searchTree.empty())
-        {
+    if(astar(grid, targetPos, visited, searchTree, nextPos, startPos)) {
+        while (!searchTree.empty()) {
             pair<int, int> pos = searchTree.front();
             searchTree.pop();
             cout << pos.first << " " << pos.second << endl;

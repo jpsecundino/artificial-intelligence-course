@@ -1457,6 +1457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   travelTime: 10
+  visitedBlock: {fileID: 2515847722117683968, guid: e3a3efc2aa34d64439d1088901d933ce, type: 3}
 --- !u!1 &5412035142450037494
 GameObject:
   m_ObjectHideFlags: 0
