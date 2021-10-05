@@ -20,7 +20,8 @@ public class WorldManager : MonoBehaviour
     {
         A,
         B,
-        C
+        C,
+        D
     }
     
     private static WorldManager _instance;
