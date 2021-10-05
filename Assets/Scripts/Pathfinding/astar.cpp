@@ -1,5 +1,6 @@
 #include<vector>
 #include<queue>
+#include<stack>
 #include<tuple>
 #include<math.h>
 #include<iostream>
@@ -44,14 +45,17 @@ bool astar(const vector<vector<char>>& grid,
          vector<vector<bool>>& visited, 
          queue<pair<int,int>>& searchTree,
          priority_queue<node, vector<node>, CompareNode>& nextPos,
+         stack<pair<int,int>>& truePath,
          node curr) {
 
     visited[curr.x][curr.y] = true;
 
     searchTree.push(make_pair(curr.x, curr.y));
     
-    if(curr.x == target.first && curr.y == target.second)
+    if(curr.x == target.first && curr.y == target.second) {
+        truePath.push(make_pair(curr.x,curr.y));
         return true;
+    }
     
     node aux;
     for(int m = 0; m < 4; m++) {
@@ -60,15 +64,16 @@ bool astar(const vector<vector<char>>& grid,
             aux.y = curr.y+moves[m][1];
             aux.gValue = curr.gValue + 1;
             aux.fValue = aux.gValue + CalculateHValue(curr.x+moves[m][0], curr.y+moves[m][1], target);
-
             nextPos.push(aux);
             visited[aux.x][aux.y] = true;
         }
     }
     aux = nextPos.top();
     nextPos.pop();
-    if(astar(grid, target, visited, searchTree, nextPos, aux))
+    if(astar(grid, target, visited, searchTree, nextPos, truePath, aux)) {
+        truePath.push(make_pair(curr.x,curr.y));
         return true;
+    }
 
     return(false);
 }
@@ -103,11 +108,18 @@ int main() {
     }
 
     queue<pair<int,int>> searchTree;
+    stack<pair<int,int>> truePath;
 
-    if(astar(grid, targetPos, visited, searchTree, nextPos, startPos)) {
+    if(astar(grid, targetPos, visited, searchTree, nextPos, truePath, startPos)) {
         while (!searchTree.empty()) {
             pair<int, int> pos = searchTree.front();
             searchTree.pop();
+            cout << pos.first << " " << pos.second << endl;
+        }
+        cout << "tp" << endl;
+        while (!truePath.empty()) {
+            pair<int, int> pos = truePath.top();
+            truePath.pop();
             cout << pos.first << " " << pos.second << endl;
         }
     }
