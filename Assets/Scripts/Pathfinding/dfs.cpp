@@ -1,5 +1,6 @@
 #include<vector>
 #include<queue>
+#include<stack>
 #include<tuple>
 #include<iostream>
 
@@ -10,6 +11,7 @@ bool dfs(const vector<vector<char>>& grid,
          const pair<int, int> target,
          vector<vector<bool>>& visited, 
          queue<pair<int,int>>& searchTree, 
+         stack<pair<int,int>>& truePath,
          int i, 
          int j){
 
@@ -23,14 +25,17 @@ bool dfs(const vector<vector<char>>& grid,
 
     searchTree.push(make_pair(i, j));
 
-    if(i == target.first && j == target.second)
+    if(i == target.first && j == target.second){
+        truePath.push(make_pair(i, j));
         return true;
+    }
 
     int moves[4][2] = {{0, 1}, {1,0}, {-1, 0}, {0, -1}};
 
     for (int k = 0; k < 4; k++)
     {
-        if(dfs(grid, target, visited, searchTree, i + moves[k][0], j + moves[k][1])){
+        if(dfs(grid, target, visited, searchTree, truePath, i + moves[k][0], j + moves[k][1])){
+            truePath.push(make_pair(i, j));
             return true;
         }
         
@@ -68,14 +73,25 @@ int main(){
     }
 
     queue<pair<int,int>> searchTree;
+    stack<pair<int,int>> truePath;
 
-    if(dfs(grid, targetPos, visited, searchTree, startPos.first, startPos.second)){
+    if(dfs(grid, targetPos, visited, searchTree, truePath, startPos.first, startPos.second)){
         while (!searchTree.empty())
         {
             pair<int, int> pos = searchTree.front();
             searchTree.pop();
             cout << pos.first << " " << pos.second << endl;
         }
+        
+        cout << "tp" << endl;
+        
+        while (!truePath.empty())
+        {
+            pair<int, int> pos = truePath.top();
+            truePath.pop();
+            cout << pos.first << " " << pos.second << endl;
+        }
+       
     }
 
     return 0;
