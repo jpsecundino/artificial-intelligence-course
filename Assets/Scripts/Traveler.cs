@@ -6,13 +6,13 @@ public class Traveler : MonoBehaviour
 {
     public float travelTime;
     public GameObject visitedBlock;
+    public float _posLerpDuration;
     public GameObject truePathBlock;
     private WorldGrid _worldGrid;
     private List<Vector2> _truePath;
     private List<Vector2> _searchTree;
     
     private float _timeElapsed;
-    private float _posLerpDuration;
     public float _searchLerpDuration = 0.00001f;
 
     private Vector2 _startPos;
@@ -27,9 +27,8 @@ public class Traveler : MonoBehaviour
         
         _worldGrid = WorldGrid.Instance;
 
-        ReadPath(); 
+        ReadPath();
         
-        _posLerpDuration = travelTime / _truePath.Count;
         if(!truePath) {
             _startPos = _searchTree[0];
             _searchTree.RemoveAt(0);
