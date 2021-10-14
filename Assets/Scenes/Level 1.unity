@@ -246,11 +246,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b31b51beac447269c106af0774a016d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacle: {fileID: 2515847722117683968, guid: f31f32e5a9e5ec042b8c2bbba8c046b9, type: 3}
+  obstacle: {fileID: 1460152400540440220, guid: 7d5145a5868c8f343baa2499bfda14a2, type: 3}
   boat: {fileID: 5412035142450037490, guid: 9f84523a358750d46b54dd8244470d4b, type: 3}
   target: {fileID: 1929303813361754878, guid: 150756809d7ae1f44b3003df0a08b4d9, type: 3}
-  _method: 0
-  _map: 0
+  _method: 1
+  _map: 1
 --- !u!114 &369709459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,7 +474,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1283146274}
   m_LocalRotation: {x: 0.3689553, y: -0.60327095, z: 0.36940083, w: 0.6028924}
-  m_LocalPosition: {x: 52.63659, y: 41.10895, z: 37.40842}
+  m_LocalPosition: {x: 61.6, y: 49.9, z: 37.40842}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

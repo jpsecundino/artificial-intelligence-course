@@ -79,6 +79,7 @@ public class Traveler : MonoBehaviour
     void FollowTruePath() {
         if (_timeElapsed < _posLerpDuration)
         {
+            Instantiate(truePathBlock, transform.position, Quaternion.identity);
             Vector3 newPos = Vector3.Lerp(_worldGrid.GetWorldPos(_startPos, cellCentered: true),
                                             _worldGrid.GetWorldPos(_endPos,cellCentered: true), _timeElapsed / _posLerpDuration);
             transform.position = newPos;
@@ -88,7 +89,6 @@ public class Traveler : MonoBehaviour
         else if(_truePath.Count != 0)
         {
             transform.position = _worldGrid.GetWorldPos(_endPos,cellCentered: true);
-            Instantiate(truePathBlock, transform.position, Quaternion.identity);
             _startPos = _endPos;
             _endPos = _truePath[0];
             _truePath.RemoveAt(0);
@@ -98,15 +98,7 @@ public class Traveler : MonoBehaviour
     }
 
     void FollowSearchTree() {
-        /*if (_timeElapsed < _searchLerpDuration)
-        {
-            Vector3 newPos = Vector3.Lerp(_worldGrid.GetWorldPos(_startPos, cellCentered: true),
-                                            _worldGrid.GetWorldPos(_endPos,cellCentered: true), _timeElapsed / _searchLerpDuration);
-            _timeElapsed += Time.deltaTime*speed;
-        
-            
-        }
-        else */if(_searchTree.Count != 0)
+        if(_searchTree.Count != 0)
         {
             Instantiate(visitedBlock, _worldGrid.GetWorldPos(_endPos, cellCentered: true), Quaternion.identity);
             _startPos = _endPos;
