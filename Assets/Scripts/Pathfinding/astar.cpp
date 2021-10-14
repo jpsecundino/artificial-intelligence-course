@@ -59,8 +59,8 @@ node astar(const vector<vector<char>>& grid,
     node aux;
     for(int m = 0; m < 4; m++) {
         if (CheckValicMovement(curr.x+moves[m][0], curr.y+moves[m][1], grid, visited)) {
-            aux.x = curr.x+moves[m][0];
-            aux.y = curr.y+moves[m][1];
+            aux.x = curr.x + moves[m][0];
+            aux.y = curr.y + moves[m][1];
             aux.gValue = curr.gValue + 1;
             aux.fValue = aux.gValue + CalculateHValue(curr.x+moves[m][0], curr.y+moves[m][1], target);
             aux.prev = &curr;
@@ -113,9 +113,11 @@ int main() {
     }
     cout << "tp" << endl;
     while(endNode.prev != NULL) {
+        if(endNode.x > n) break;
         truePath.push(make_pair(endNode.x,endNode.y));
         endNode = *endNode.prev;
     }
+    
     while (!truePath.empty()) {
         pair<int, int> pos = truePath.top();
         truePath.pop();

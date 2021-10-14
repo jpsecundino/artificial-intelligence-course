@@ -6,6 +6,7 @@ public class Traveler : MonoBehaviour
 {
     public float travelTime;
     public GameObject visitedBlock;
+    public GameObject truePathBlock;
     private WorldGrid _worldGrid;
     private List<Vector2> _truePath;
     private List<Vector2> _searchTree;
@@ -87,6 +88,7 @@ public class Traveler : MonoBehaviour
         else if(_truePath.Count != 0)
         {
             transform.position = _worldGrid.GetWorldPos(_endPos,cellCentered: true);
+            Instantiate(truePathBlock, transform.position, Quaternion.identity);
             _startPos = _endPos;
             _endPos = _truePath[0];
             _truePath.RemoveAt(0);
@@ -106,7 +108,7 @@ public class Traveler : MonoBehaviour
         }
         else */if(_searchTree.Count != 0)
         {
-            Instantiate(visitedBlock, _worldGrid.GetWorldPos(_endPos,cellCentered: true), Quaternion.identity);
+            Instantiate(visitedBlock, _worldGrid.GetWorldPos(_endPos, cellCentered: true), Quaternion.identity);
             _startPos = _endPos;
             _endPos = _searchTree[0];
             _searchTree.RemoveAt(0);
@@ -114,7 +116,6 @@ public class Traveler : MonoBehaviour
         }
         else {
             truePath = true;
-            Debug.Log(_truePath.Count);
             _startPos = _truePath[0];
             _truePath.RemoveAt(0);
             _endPos = _truePath[0];

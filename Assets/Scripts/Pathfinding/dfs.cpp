@@ -69,7 +69,6 @@ int main(){
                 targetPos = make_pair(i, j);
             } 
         }
-
     }
 
     queue<pair<int,int>> searchTree;
