@@ -130,10 +130,11 @@ int main() {
     }
     cout << "tp" << endl;
     while(endNode.prev != NULL) {
-        if(endNode.x >= n || endNode.x < 0 ) break;
         truePath.push(make_pair(endNode.x,endNode.y));
         endNode = *endNode.prev;
     }
+    
+    truePath.push(make_pair(endNode.x,endNode.y));
     
     while (!truePath.empty()) {
         pair<int, int> pos = truePath.top();
