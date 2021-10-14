@@ -14,6 +14,26 @@ typedef struct node_{
   float fValue;
   float gValue;
   struct node_* prev;
+  
+  node_(){}
+  
+  node_(int _x, int _y, float _fValue, float _gValue){
+    x = _x;
+    y = _y;
+    fValue = _fValue;
+    gValue = _gValue;
+    prev = NULL;
+  }
+  
+  node_(const node_& n){
+    x = n.x;
+    y = n.y;
+    fValue = n.fValue;
+    gValue = n.gValue;
+    prev = n.prev;
+  }
+  
+  
 }node;
 
 struct CompareNode {
@@ -59,11 +79,8 @@ node astar(const vector<vector<char>>& grid,
     node aux;
     for(int m = 0; m < 4; m++) {
         if (CheckValicMovement(curr.x+moves[m][0], curr.y+moves[m][1], grid, visited)) {
-            aux.x = curr.x + moves[m][0];
-            aux.y = curr.y + moves[m][1];
-            aux.gValue = curr.gValue + 1;
-            aux.fValue = aux.gValue + CalculateHValue(curr.x+moves[m][0], curr.y+moves[m][1], target);
-            aux.prev = &curr;
+            aux = *(new node(curr.x + moves[m][0], curr.y + moves[m][1], curr.gValue + 1, aux.gValue + CalculateHValue(curr.x+moves[m][0], curr.y+moves[m][1], target)));
+            aux.prev = new node(curr);
             nextPos.push(aux);
             visited[aux.x][aux.y] = true;
         }
@@ -113,7 +130,7 @@ int main() {
     }
     cout << "tp" << endl;
     while(endNode.prev != NULL) {
-        if(endNode.x > n) break;
+        if(endNode.x >= n || endNode.x < 0 ) break;
         truePath.push(make_pair(endNode.x,endNode.y));
         endNode = *endNode.prev;
     }
