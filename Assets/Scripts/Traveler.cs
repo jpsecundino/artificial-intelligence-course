@@ -84,6 +84,11 @@ public class Traveler : MonoBehaviour
                                             _worldGrid.GetWorldPos(_endPos,cellCentered: true), _timeElapsed / _posLerpDuration);
             transform.position = newPos;
             _timeElapsed += Time.deltaTime/1.1f;
+
+            if (_timeElapsed >= _posLerpDuration && _truePath.Count == 0)
+            {
+                ScreenshotHandler.TakeScreenshot_Static(1920,1080);
+            }
             
         }
         else if(_truePath.Count != 0)

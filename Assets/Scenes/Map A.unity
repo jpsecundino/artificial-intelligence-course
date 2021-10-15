@@ -284,8 +284,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacle: {fileID: 1460152400540440220, guid: 7d5145a5868c8f343baa2499bfda14a2, type: 3}
   boat: {fileID: 5412035142450037490, guid: 9f84523a358750d46b54dd8244470d4b, type: 3}
-  target: {fileID: 1929303813361754878, guid: 150756809d7ae1f44b3003df0a08b4d9, type: 3}
-  _method: 0
+  target: {fileID: 2429142843153848438, guid: de77741550f0cfc4693b17888cd2b1a8, type: 3}
+  _method: 1
   _map: 0
 --- !u!114 &369709459
 MonoBehaviour:
@@ -389,7 +389,7 @@ Canvas:
   m_GameObject: {fileID: 485089271}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1211,6 +1211,7 @@ GameObject:
   - component: {fileID: 1283146277}
   - component: {fileID: 1283146276}
   - component: {fileID: 1283146275}
+  - component: {fileID: 1283146278}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1283,6 +1284,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 68.131, y: 0, z: 0}
+--- !u!114 &1283146278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283146274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e382b21e7fb2614caa602f4fedec19a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1420665424
 GameObject:
   m_ObjectHideFlags: 0
