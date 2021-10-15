@@ -24,7 +24,7 @@ public class Traveler : MonoBehaviour
     {
         //find another place to put this
         GetComponent<DiscretePositioning>().enabled = false;
-        
+        UIController.ChangeAlgName(WorldManager.Instance._method.ToString());
         _worldGrid = WorldGrid.Instance;
 
         ReadPath();
@@ -78,6 +78,7 @@ public class Traveler : MonoBehaviour
     void FollowTruePath() {
         if (_timeElapsed < _posLerpDuration)
         {
+            transform.LookAt(_worldGrid.GetWorldPos(_endPos,cellCentered: true));
             Instantiate(truePathBlock, transform.position, Quaternion.identity);
             Vector3 newPos = Vector3.Lerp(_worldGrid.GetWorldPos(_startPos, cellCentered: true),
                                             _worldGrid.GetWorldPos(_endPos,cellCentered: true), _timeElapsed / _posLerpDuration);
@@ -91,7 +92,7 @@ public class Traveler : MonoBehaviour
             _startPos = _endPos;
             _endPos = _truePath[0];
             _truePath.RemoveAt(0);
-            transform.LookAt(_worldGrid.GetWorldPos(_endPos,cellCentered: true));
+            UIController.IncreaseTP();
             _timeElapsed = 0f;
         }
     }
@@ -99,11 +100,12 @@ public class Traveler : MonoBehaviour
     void FollowSearchTree() {
         if(_searchTree.Count != 0)
         {
+            // Debug.Log(_searchTree.Count);
             Instantiate(visitedBlock, _worldGrid.GetWorldPos(_endPos, cellCentered: true), Quaternion.identity);
             _startPos = _endPos;
             _endPos = _searchTree[0];
             _searchTree.RemoveAt(0);
-            _timeElapsed = 0f;
+            UIController.IncreaseST();
         }
         else {
             truePath = true;

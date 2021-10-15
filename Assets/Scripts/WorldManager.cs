@@ -13,7 +13,8 @@ public class WorldManager : MonoBehaviour
     public enum Method
     {
         DFS,
-        AStar
+        AStar,
+        BFS
     } 
     
     public enum Map
@@ -84,9 +85,7 @@ public class WorldManager : MonoBehaviour
         string[] gridDimensions = lines[0].Split(' ');
         _worldGrid.width = int.Parse(gridDimensions[0]);
         _worldGrid.height = int.Parse(gridDimensions[1]);
-        
-        Debug.Log(_worldGrid.width + " " + _worldGrid.height);
-        
+
         _worldGrid.gridMap = new char[_worldGrid.width, _worldGrid.height];
                 
         for(int i = 1; i < lines.Length; i++)
