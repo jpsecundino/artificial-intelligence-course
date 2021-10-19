@@ -41,7 +41,7 @@ bool dfs(const vector<vector<char>>& grid,
         
     }
 
-    searchTree.push(make_pair(i, j));
+    // searchTree.push(make_pair(i, j));
     return false;
 }
 

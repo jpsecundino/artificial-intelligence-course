@@ -285,7 +285,7 @@ MonoBehaviour:
   obstacle: {fileID: 1460152400540440220, guid: 7d5145a5868c8f343baa2499bfda14a2, type: 3}
   boat: {fileID: 5412035142450037490, guid: 9f84523a358750d46b54dd8244470d4b, type: 3}
   target: {fileID: 2429142843153848438, guid: de77741550f0cfc4693b17888cd2b1a8, type: 3}
-  _method: 2
+  _method: 0
   _map: 2
 --- !u!114 &369709459
 MonoBehaviour:
@@ -1293,7 +1293,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1283146274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e382b21e7fb2614caa602f4fedec19a, type: 3}
+  m_Script: {fileID: 11500000, guid: c2bce3f1b83926b4da01b9e3c2d090b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1420665424
